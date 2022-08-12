@@ -5,10 +5,11 @@ import (
 	"awesomeProject1/Bitcoine/CircleQueue"
 	"awesomeProject1/Bitcoine/Queue"
 	"awesomeProject1/Bitcoine/StackArray"
+	Queue2 "awesomeProject1/Bitcoine/threadsafe/Queue"
 	"fmt"
 )
 
-func main() {
+func main1() {
 	list := ArrayList.NewArrayList()
 	list.Append("a2")
 	list.Append("b1")
@@ -66,4 +67,17 @@ func main5() {
 	fmt.Println(mystack.Pop())
 	fmt.Println(mystack.Pop())
 	fmt.Println(mystack.Pop())
+}
+
+func main6() {
+	h := Queue2.NewMin()
+	h.Insert(Queue2.Int(8))
+	h.Insert(Queue2.Int(7))
+	h.Insert(Queue2.Int(6))
+	h.Insert(Queue2.Int(5))
+	h.Insert(Queue2.Int(4))
+	h.Insert(Queue2.Int(3))
+	h.Insert(Queue2.Int(2))
+	h.Insert(Queue2.Int(1))
+	fmt.Println(h.Extract().(Queue2.Int))
 }

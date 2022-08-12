@@ -5,6 +5,7 @@ import (
 	"strings"
 )
 
+//接口
 type SingleLink interface {
 	//增删查改
 	GetFirstNode() *SingleLinkNode        //抓取头部节点
@@ -70,6 +71,8 @@ func (list *SingleLinkList) InsertNodeBack(node *SingleLinkNode) {
 	}
 }
 
+//在节点前插入节点
+
 func (list *SingleLinkList) InsertNodeValueFront(dest interface{}, node *SingleLinkNode) bool {
 	phead := list.head
 	isfind := false //是否找到数据
@@ -89,6 +92,8 @@ func (list *SingleLinkList) InsertNodeValueFront(dest interface{}, node *SingleL
 		return isfind
 	}
 }
+
+//在节点后插入节点
 func (list *SingleLinkList) InsertNodeValueBack(dest interface{}, node *SingleLinkNode) bool {
 	phead := list.head
 	isfind := false //是否找到数据
@@ -140,6 +145,8 @@ func (list *SingleLinkList) DeleteNode(dest *SingleLinkNode) bool {
 		return false
 	}
 }
+
+//按索引删除节点
 func (list *SingleLinkList) DeleteAtIndext(index int) {
 	if index > list.length-1 || index < 0 {
 		return
@@ -166,6 +173,8 @@ func (list *SingleLinkList) String() string {
 	listString += fmt.Sprintf("nil")
 	return listString //打印链表字符串
 }
+
+//找字符串
 func (list *SingleLinkList) FindString(data string) {
 	phead := list.head.pNext //指定头部
 	for phead.pNext != nil { //循环所有数据
@@ -175,6 +184,8 @@ func (list *SingleLinkList) FindString(data string) {
 		phead = phead.pNext
 	}
 }
+
+//获得中间节点
 
 func (list *SingleLinkList) GetMid() *SingleLinkNode {
 	if list.head.pNext == nil {
@@ -189,6 +200,8 @@ func (list *SingleLinkList) GetMid() *SingleLinkNode {
 		return phead1 //返回中间节点
 	}
 }
+
+//反转链表
 
 func (list *SingleLinkList) ReverseList() {
 	if list.head == nil || list.head.pNext == nil {

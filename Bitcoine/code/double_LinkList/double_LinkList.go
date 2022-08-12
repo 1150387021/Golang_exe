@@ -1,6 +1,9 @@
 package double_LinkList
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 //双链表的基本结构
 type DoubleLinkList struct {
@@ -116,5 +119,112 @@ func (dlist *DoubleLinkList) InsertValueHead(dest *DoubleLinkNode, node *DoubleL
 		return true
 	} else {
 		return false
+	}
+}
+
+func (dlist *DoubleLinkList) InsertValueBackByValue(dest interface{}, node *DoubleLinkNode) bool {
+	phead := dlist.head
+	for phead.next != nil && phead.next.value != dest {
+		phead = phead.next
+	}
+	if phead.next.value == dest {
+		if phead.next.next != nil {
+			phead.next.next.prev = node
+		}
+		node.next = phead.next.next
+		phead.next.next = node
+		node.prev = phead.next
+
+		//dlist.head = phead
+		dlist.length++
+		return true
+	} else {
+		return false
+	}
+}
+
+func (dlist *DoubleLinkList) InsertValueHeadByValue(dest interface{}, node *DoubleLinkNode) bool {
+	phead := dlist.head
+	for phead.next != nil && phead.next.value != dest {
+		phead = phead.next
+	}
+	if phead.next.value == dest {
+		if phead.next != nil {
+			phead.next.prev = node
+		}
+		node.next = phead.next
+		node.prev = phead
+		phead.next = node
+
+		//dlist.head = phead
+		dlist.length++
+		return true
+	} else {
+		return false
+	}
+}
+func (dlist *DoubleLinkList) GetNodeAtIndex(index int) *DoubleLinkNode {
+	if index > dlist.length-1 || index < 0 {
+		return nil
+	}
+	phead := dlist.head
+	for index > -1 {
+		phead = phead.next
+		index--
+	}
+	return phead
+
+}
+
+func (dlist *DoubleLinkList) DeleteNode(node *DoubleLinkNode) bool {
+	if node == nil {
+		return false
+	} else {
+		phead := dlist.head
+		for phead.next != nil && phead.next != node {
+			phead = phead.next //循环查找
+		}
+		if phead.next == node {
+			if phead.next.next != nil {
+				phead.next.next.prev = phead //设置pre
+			}
+			phead.next = phead.next.next //设置next
+
+			dlist.length--
+			return true
+		} else {
+			return false
+		}
+	}
+
+}
+
+func (dlist *DoubleLinkList) DeleteNodeAtIndex(index int) bool {
+	if index > dlist.length-1 || index < 0 {
+		return false
+	}
+	phead := dlist.head
+	for index > 0 {
+		phead = phead.next
+		index--
+	}
+	if phead.next.next != nil {
+		phead.next.next.prev = phead //设置pre
+	}
+	phead.next = phead.next.next //设置next
+
+	dlist.length--
+	return true
+
+}
+
+func (dlist *DoubleLinkList) Findstring(inputstr string) {
+	phead := dlist.head.next
+	for phead.next != nil {
+		//正向循环
+		if strings.Contains(phead.value.(string), inputstr) {
+			fmt.Println(phead.value.(string))
+		}
+		phead = phead.next
 	}
 }
